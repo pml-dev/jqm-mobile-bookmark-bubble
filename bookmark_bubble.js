@@ -265,6 +265,8 @@ google.bookmarkbubble.Bubble.prototype.IMAGE_ANDROID4_MOBILE_BOOKMARK_DATA_URL_ 
  * Popup message to create shortcut to Home.
  */
 google.bookmarkbubble.Bubble.prototype.msg = {
+  windowphone:
+    '<b>Install this app:</b><br /> 1) Add to Bookmarks,<br /> 2) Tap and Hold the bookmark,<br /> 3) Select "<b>Add Shortcut to Home</b>"',
   android:
     '<b>Install this app:</b><br /> 1) Add to Bookmarks,<br /> 2) Tap and Hold the bookmark,<br /> 3) Select "<b>Add Shortcut to Home</b>"',
   android3:
@@ -321,6 +323,7 @@ google.bookmarkbubble.Bubble.prototype.IPAD_USERAGENT_REGEX_ = /iPad/;
 google.bookmarkbubble.Bubble.prototype.ANDROID_USERAGENT_REGEX_ = /Android/;
 google.bookmarkbubble.Bubble.prototype.BLACKBERRY_USERAGENT_REGEX_ = /BlackBerry/;
 google.bookmarkbubble.Bubble.prototype.PLAYBOOK_USERAGENT_REGEX_ = /PlayBook/;
+google.bookmarkbubble.Bubble.prototype.WINDOWSPHONE_USERAGENT_REGEX_ = /IEMobile/;
 
 /**
  * Regular expression for extracting the iOS version. Only matches 2.0 and up.
@@ -484,7 +487,9 @@ google.bookmarkbubble.Bubble.prototype.isBlackBerry_ = function() {
 google.bookmarkbubble.Bubble.prototype.isPlayBook_ = function() {
   return this.PLAYBOOK_USERAGENT_REGEX_.test(window.navigator.userAgent);
 };
-
+google.bookmarkbubble.Bubble.prototype.isWindowsPhone_ = function () {
+  return this.WINDOWSPHONE_USERAGENT_REGEX_.test(window.navigator.userAgent);
+};
 
 /**
  * Creates a version number from 4 integer pieces between 0 and 127 (inclusive).
@@ -649,6 +654,7 @@ google.bookmarkbubble.Bubble.prototype.build_ = function() {
   var isAndroid = this.isAndroid_();
   var isPlayBook = this.isPlayBook_();
   var isBlackBerry = this.isBlackBerry_();
+  var isWindows = this.isWindowsPhone_();
 
   var bubble = document.createElement('div');
   bubble.className = 'bookmark-bubble';
@@ -713,6 +719,10 @@ google.bookmarkbubble.Bubble.prototype.build_ = function() {
     bubbleInner.innerHTML = this.msg.playbook;
     bubbleInner.style.position = 'absolute';
     bubbleInner.style.right = '0px';
+  }
+  else if (isWindows) {
+	bubbleInner.innerHTML = this.msg.windowsphone;
+	bubbleInner.style.font = '0.625em sans-serif';
   }
   else {
     if (this.getIosVersion_() >= this.getVersion_(7, 0)) {

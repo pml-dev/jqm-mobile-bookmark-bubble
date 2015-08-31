@@ -1,4 +1,6 @@
 google.bookmarkbubble.Bubble.prototype.msg = {
+  windowsphone:
+     '<b>Installer cette app:</b><br /> 1) Ajouter un favori,<br /> 2) Appuyez et maintenez le favori,<br /> 3) Select "<b>Ajouter raccourci écran d\'accueil</b>"',
   android: 
     '<b>Installer cette app:</b><br /> 1) Ajouter un favori,<br /> 2) Appuyez et maintenez le favori,<br /> 3) Select "<b>Ajouter raccourci écran d\'accueil</b>"',
   android3: 
